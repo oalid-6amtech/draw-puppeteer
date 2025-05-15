@@ -347,6 +347,26 @@ async function draw() {
     await page.mouse.down();
     await page.mouse.move(startX + 396, startY + 103, commonMoveOptions);
     await page.mouse.up();
+
+    //step 10
+
+    // await page.mouse.move(startX + 245, startY + 330, commonMoveOptions);
+    await page.mouse.move(startX + 220, startY + 360, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(startX + 300, startY + 360, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(startX + 300, startY + 430, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(startX + 220, startY + 430, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(startX + 220, startY + 360, commonMoveOptions);
+    await page.mouse.up();
+
+    await page.mouse.move(startX + 240, startY + 360, commonMoveOptions);
+    
     
 
     await page.screenshot({ path: "house2.png" });
