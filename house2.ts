@@ -4,7 +4,7 @@ async function draw() {
     const openBrowser = true; // Set to false to run in headless mode
     const browser = await puppeteer.launch({
         headless: !openBrowser,
-        slowMo: (openBrowser) ? 0 : 0,
+        slowMo: (openBrowser) ? 100 : 0,
         args: [
             "--no-sandbox", 
             "--disable-setuid-sandbox",
@@ -23,7 +23,7 @@ async function draw() {
     // drawing a house
     const startX = 700;
     const startY = 100;
-    let drawSteps = (openBrowser) ? 1 : 1;
+    let drawSteps = (openBrowser) ? 5 : 1;
 
     let commonMoveOptions = {
         steps: drawSteps,
@@ -349,24 +349,20 @@ async function draw() {
     await page.mouse.up();
 
     //step 10
-
-    // await page.mouse.move(startX + 245, startY + 330, commonMoveOptions);
-    await page.mouse.move(startX + 220, startY + 360, commonMoveOptions);
-    await page.mouse.down();
-    await page.mouse.move(startX + 300, startY + 360, commonMoveOptions);
-    await page.mouse.up();
-    await page.mouse.down();
-    await page.mouse.move(startX + 300, startY + 430, commonMoveOptions);
-    await page.mouse.up();
-    await page.mouse.down();
-    await page.mouse.move(startX + 220, startY + 430, commonMoveOptions);
-    await page.mouse.up();
-    await page.mouse.down();
-    await page.mouse.move(startX + 220, startY + 360, commonMoveOptions);
-    await page.mouse.up();
-
-    await page.mouse.move(startX + 240, startY + 360, commonMoveOptions);
+    // window box
+    await windowBox(page, startX + 220, startX + 300, startY + 360, startY + 430, commonMoveOptions);
+    await windowBox(page, startX + 440, startX + 520, startY + 360, startY + 430, commonMoveOptions);
     
+
+    // press on text
+    await page.keyboard.press("8");
+    await page.mouse.move(startX + 280, startY + 200, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.up();
+
+    await page.keyboard.type("WA&WS Home\nAbu Bin Oalid", {
+        delay: 100,
+    });
     
 
     await page.screenshot({ path: "house2.png" });
@@ -380,6 +376,96 @@ async function mouseUpDown(page: any) {
     await page.mouse.down();
     await page.mouse.up();
     
+}
+
+async function windowBox(page:any, startX: number, endX: number, startY: number, endY: number, commonMoveOptions: any) {
+
+    await page.mouse.move(startX-5, startY-5, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(endX+5, startY-5, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(endX+5, endY+5, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(startX-5, endY+5, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(startX-5, startY-5, commonMoveOptions);
+    await page.mouse.up();
+
+    await page.mouse.move(startX-5, endY+5, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(startX-15, endY+5, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.move(startX-15, endY+5, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(startX-15, endY+15, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(endX+15, endY+15, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(endX+15, endY+5, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(endX+5, endY+5, commonMoveOptions);
+    await page.mouse.up();
+
+    //window top start
+    await page.mouse.move(startX-5, startY-5, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(startX, startY-15, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(endX, startY-15, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(endX+5, startY-5, commonMoveOptions);
+    await page.mouse.up();
+
+    //window top end
+    
+    await page.mouse.move(startX, startY, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(endX, startY, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(endX, endY, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(startX, endY, commonMoveOptions);
+    await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(startX, startY, commonMoveOptions);
+    await page.mouse.up();
+
+    let diffX = 20;    
+    await page.mouse.move(startX + diffX, startY, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(startX + diffX, endY, commonMoveOptions);
+    await page.mouse.up();
+
+    await page.mouse.move(startX + (diffX * 2), startY, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(startX + (diffX * 2), endY, commonMoveOptions);
+    await page.mouse.up();
+
+    await page.mouse.move(startX + (diffX * 3), startY, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(startX + (diffX * 3), endY, commonMoveOptions);
+    await page.mouse.up();
+
+    let diffY = 23;
+    await page.mouse.move(startX, startY + diffY, commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(endX, startY + diffY, commonMoveOptions);
+    await page.mouse.up();
+
+    await page.mouse.move(startX, startY + (diffY * 2), commonMoveOptions);
+    await page.mouse.down();
+    await page.mouse.move(endX, startY + (diffY * 2), commonMoveOptions);
+    await page.mouse.up();
 }
 
 await draw().catch((e) => {
